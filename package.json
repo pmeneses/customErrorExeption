@@ -1,0 +1,40 @@
+{
+  "name": "@pm/custom-error-handler",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/cjs/",
+  "module": "./dist/esm/",
+  "sideEffects": false,
+  "files": [
+    "./dist"
+  ],
+  "exports": {
+    "./*": {
+      "require": "./dist/cjs/*.js",
+      "import": "./dist/esm/*.js"
+    }
+  },
+  "scripts": {
+    "build:package": "rollup -c",
+    "lint:fix": "prettier --write . && eslint --fix ."
+  },
+  "dependencies": {
+    "knex": "^3.1.0",
+    "redis": "^4.6.13",
+    "sqlite3": "^5.1.7"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.22.9",
+    "@rollup/plugin-babel": "^6.0.3",
+    "rollup": "^3.26.2",
+    "rollup-plugin-copy": "^3.4.0",
+    "rollup-plugin-multi-entry": "^2.1.0",
+    "eslint": "8.22.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "prettier": "^2.8.0"
+  }
+}
