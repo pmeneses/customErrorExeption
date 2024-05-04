@@ -22,7 +22,7 @@ jobs:
       - run: npm run build:package
 
   publish-gpr:
-    needs: build
+    needs: dist
     runs-on: ubuntu-latest
     permissions:
       contents: read
