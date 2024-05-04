@@ -30,7 +30,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-      - run: echo NODE_AUTH_TOKEN
+      - run: echo $secrets.NPM_TOKEN
       - run: npm ci
       - run: npm publish
         env:
