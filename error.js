@@ -43,17 +43,17 @@ async function insertError({ httpCode, status, description }) {
   });
 
   if (!error) {
+    error = {
+        httpCode,
+        status,
+        description,
+        title: defaultTitle,
+        detail: defaultDetail,
+    };
+
     await bdInstance("error").insert(errorObj);
     cacheInstance.del("customErrors")
   }
-
-  error = {
-    httpCode,
-    status,
-    description,
-    title: defaultTitle,
-    detail: defaultDetail,
-  };
 
   cacheInstance.quit();
 
