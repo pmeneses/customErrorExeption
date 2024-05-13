@@ -51,7 +51,7 @@ async function insertError({ httpCode, status, description }) {
         detail: defaultDetail,
     };
 
-    await bdInstance("error").insert(errorObj);
+    await bdInstance("error").insert(error);
     cacheInstance.del("customErrors")
   }
 
