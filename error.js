@@ -36,17 +36,18 @@ async function insertError({ httpCode, status, description }) {
     await cacheInstance.set("customErrors", JSON.stringify(errors), {
       EXP: 3600,
     });
-
-    cacheInstance.quit();
   }
 
-  const error = errors.find((err) => {
+  let error = errors.find((err) => {
     return err.status === status && err.httpCode === httpCode;
   });
 
-  if (error) return error;
+  if (!error) {
+    await bdInstance("error").insert(errorObj);
+    cacheInstance.del("customErrors")
+  }
 
-  const errorObj = {
+  error = {
     httpCode,
     status,
     description,
@@ -54,9 +55,9 @@ async function insertError({ httpCode, status, description }) {
     detail: defaultDetail,
   };
 
-  await bdInstance("error").insert(errorObj);
+  cacheInstance.quit();
 
-  return errorObj;
+  return error;
 }
 
 module.exports = { insertError };
